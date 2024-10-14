@@ -73,7 +73,9 @@ public class AccountingApp {
         }
 
 
-    } //Osmig help ends here // Create a method payment
+    } //Osmig help ends here
+
+    // Create a method payment option of home screen menu
 
     public static void payment() {
         try {
@@ -121,7 +123,7 @@ public class AccountingApp {
                 displayDepositEntries();
                 break;
             case "P":
-                System.out.println("User choice P display only payments");
+                displayPaymentEntries();
                 break;
             case "R":
                 System.out.println("User choice R go to reports menu");
@@ -142,39 +144,13 @@ public class AccountingApp {
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
             Scanner myScanner = new Scanner(myFileInputStream); // create a Scanner to reference the file to be read
 
-            String transactionLine; //Temporary store the transcation line
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
+                String transactionLine; //Temporary store the transaction line
                 transactionLine = myScanner.nextLine();
                 System.out.println(transactionLine);
             }
-
-            myScanner.close();
-
-        }
-        catch (Exception e) {
-            System.out.println("An unexpected error occured");
-            e.printStackTrace();
-
-        }
-
-    }
-
-    //Method used to display deposit entry Ledger Menu - Option D
-    public static void displayDepositEntries(){
-        try {
-
-        FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-        Scanner myScanner = new Scanner(myFileInputStream);
-
-        while (myScanner.hasNextLine()) {
-            String transactionLine = myScanner.nextLine();//Temporary store the transaction line
-            String[] transactionLineSplit = transactionLine.split("\\|"); // Create this String array so that I can split the transaction line variable and store it in the string array
-            float transactionAmount = Float.parseFloat(transactionLineSplit[4]); // Convert amount from string to float
-            if (transactionAmount >0)
-        System.out.println(transactionLine);
-        }
 
             myScanner.close();
 
@@ -186,20 +162,71 @@ public class AccountingApp {
 
     }
 
+    //Method used to display deposit entry Ledger Menu - Option D
+    public static void displayDepositEntries() {
+        try {
+            //Create a FileInputStream object pointing to transaction.csv file
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myFileInputStream);
 
-    // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
+            //While loop to read until there is no more data
+            while (myScanner.hasNextLine()) {
+                String transactionLine = myScanner.nextLine();//Temporary store the transaction line
+                String[] transactionLineSplit = transactionLine.split("\\|"); // Create this String array so that I can split the transaction line variable and store it in the string array
+                float transactionAmount = Float.parseFloat(transactionLineSplit[4]); // Convert amount from string to float
+                if (transactionAmount > 0) //Making sure im getting the posit value as deposit and not the payment
+                    System.out.println(transactionLine);
+            }
 
-    // TODO: Create a method to show Reports Menu to the user
+            myScanner.close();
 
-    // TODO: Create a method to show all transactions
+        } catch (Exception e) {
+            System.out.println("An unexpected error occured");
+            e.printStackTrace();
 
-    // TODO: Create a method to transactions by a certain type: deposits or payments
+        }
 
-    // TODO: Create a method to show transactions by date (accept inputs start date and end date)
-    // We can use this method to address reports 1 to 4
+    }
 
-    // TODO: Create a method to transactions by vendor name
+    //Method to display only payment of Ledger menu - Option P
+    public static void displayPaymentEntries() {
 
-    // TODO: Create a custom search method
+        try {
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myFileInputStream);
 
+            while (myScanner.hasNextLine()) {
+                String transactionLine = myScanner.nextLine();
+                String[] transactionLineSplit = transactionLine.split("\\|");
+                float transactionAmount = Float.parseFloat(transactionLineSplit[4]);
+                if (transactionAmount < 0)
+                    System.out.println(transactionLine);
+            }
+
+            myScanner.close();
+
+        } catch (Exception e) {
+            System.out.println("An unexpected error occured");
+            e.printStackTrace();
+        }
+
+
+    }
 }
+
+
+// TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
+
+// TODO: Create a method to show Reports Menu to the user
+
+
+// TODO: Create a method to transactions by a certain type: deposits or payments
+
+// TODO: Create a method to show transactions by date (accept inputs start date and end date)
+// We can use this method to address reports 1 to 4
+
+// TODO: Create a method to transactions by vendor name
+
+// TODO: Create a custom search method
+
+
