@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import javax.print.DocFlavor;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -72,7 +73,7 @@ public class AccountingApp {
         }
 
 
-    } //Osmig help ends here
+    } //Osmig help ends here // Create a method payment
 
     public static void payment() {
         try {
@@ -99,8 +100,7 @@ public class AccountingApp {
     }
 
 
-    //Method for ledgerMenu
-    // TODO: finish Ledger Menu
+    //Method for ledgerMenu option
     public static void showLedgerMenu() {
 
         Scanner myScanner = new Scanner(System.in);
@@ -118,7 +118,7 @@ public class AccountingApp {
                 showAllEntries();
                 break;
             case "D":
-                System.out.println("User choice Display deposit entries");
+                displayDepositEntries();
                 break;
             case "P":
                 System.out.println("User choice P display only payments");
@@ -134,7 +134,7 @@ public class AccountingApp {
 
     }
 
-    // Method ledger menu to display all entries. I am using the Scanner method to read the transaction file and using a while loop to read until there's no more line.
+    // Method ledger menu to display option A all entries. I am using the Scanner method to read the transaction file and using a while loop to read until there's no more line.
     public static void showAllEntries() {
         try {
 
@@ -154,6 +154,31 @@ public class AccountingApp {
 
         }
         catch (Exception e) {
+            System.out.println("An unexpected error occured");
+            e.printStackTrace();
+
+        }
+
+    }
+
+    //Method used to display deposit entry Ledger Menu - Option D
+    public static void displayDepositEntries(){
+        try {
+
+        FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+        Scanner myScanner = new Scanner(myFileInputStream);
+
+        while (myScanner.hasNextLine()) {
+            String transactionLine = myScanner.nextLine();//Temporary store the transaction line
+            String[] transactionLineSplit = transactionLine.split("\\|"); // Create this String array so that I can split the transaction line variable and store it in the string array
+            float transactionAmount = Float.parseFloat(transactionLineSplit[4]); // Convert amount from string to float
+            if (transactionAmount >0)
+        System.out.println(transactionLine);
+        }
+
+            myScanner.close();
+
+        } catch (Exception e) {
             System.out.println("An unexpected error occured");
             e.printStackTrace();
 
