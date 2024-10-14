@@ -126,7 +126,7 @@ public class AccountingApp {
                 displayPaymentEntries();
                 break;
             case "R":
-                System.out.println("User choice R go to reports menu");
+                showReportMenu();
                 break;
             default:
                 System.out.println("Your option is not valid");
@@ -174,7 +174,7 @@ public class AccountingApp {
                 String transactionLine = myScanner.nextLine();//Temporary store the transaction line
                 String[] transactionLineSplit = transactionLine.split("\\|"); // Create this String array so that I can split the transaction line variable and store it in the string array
                 float transactionAmount = Float.parseFloat(transactionLineSplit[4]); // Convert amount from string to float
-                if (transactionAmount > 0) //Making sure im getting the posit value as deposit and not the payment
+                if (transactionAmount > 0) //Making sure im getting the posit value as deposit and not the payment which is negative
                     System.out.println(transactionLine);
             }
 
@@ -192,9 +192,10 @@ public class AccountingApp {
     public static void displayPaymentEntries() {
 
         try {
+            //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
             Scanner myScanner = new Scanner(myFileInputStream);
-
+            //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
                 String transactionLine = myScanner.nextLine();
                 String[] transactionLineSplit = transactionLine.split("\\|");
@@ -212,6 +213,53 @@ public class AccountingApp {
 
 
     }
+
+    //Method Reports menu
+    public static void showReportMenu() {
+
+        Scanner myScanner = new Scanner(System.in);
+        System.out.println("Welcome to the Reports Menu!");
+        System.out.println("Type 1 to see Month to Date transactions");
+        System.out.println("Type 2 to see Previous Month transactions");
+        System.out.println("Type 3 to see Year do Date transactions");
+        System.out.println("Type 4 to display previous year transactions");
+        System.out.println("Type 5 to search the transactions by Vendor");
+        System.out.println("Type 0 to go back to the Ledger page ");
+        System.out.println("Type H to go back to the home page");
+
+        int userChoiceReportMenu = myScanner.nextInt();
+
+
+        switch (userChoiceReportMenu) {
+            case 1:
+                System.out.println("You choose Month to date transactions");
+                break;
+            case 2:
+                System.out.println("You choose previous month transactions");
+                break;
+            case 3:
+                System.out.println(" You choose Year to date transaction");
+                break;
+            case 4:
+                System.out.println("You choose previous year transaction");
+                break;
+            case 5:
+                System.out.println("You choose search the transaction by vendor");
+                break;
+            case 0:
+                System.out.println("You choose to go back to the home page");
+                break;
+            case 8:
+                System.out.println("You choose go back to home page");
+                break;
+            default:
+                System.out.println("Your option is not valid");
+
+
+        }
+
+
+    }
 }
 
 
@@ -223,7 +271,7 @@ public class AccountingApp {
 // TODO: Create a method to transactions by a certain type: deposits or payments
 
 // TODO: Create a method to show transactions by date (accept inputs start date and end date)
-// We can use this method to address reports 1 to 4
+// might use this method to address reports 1 to 4
 
 // TODO: Create a method to transactions by vendor name
 
