@@ -112,6 +112,7 @@ public class AccountingApp {
         System.out.println("Type D to display deposit entries");
         System.out.println("Type P to display only payments");
         System.out.println("Type R to go to Reports Menu");
+        System.out.println("Type H to go back to Home Screen");
 
         String userChoiceLedger = myScanner.nextLine();
 
@@ -127,6 +128,9 @@ public class AccountingApp {
                 break;
             case "R":
                 showReportMenu();
+                break;
+            case "H":
+                System.out.println("Show home screen");
                 break;
             default:
                 System.out.println("Your option is not valid");
@@ -225,7 +229,6 @@ public class AccountingApp {
         System.out.println("Type 4 to display previous year transactions");
         System.out.println("Type 5 to search the transactions by Vendor");
         System.out.println("Type 0 to go back to the Ledger page ");
-        System.out.println("Type H to go back to the home page");
 
         int userChoiceReportMenu = myScanner.nextInt();
 
@@ -248,9 +251,6 @@ public class AccountingApp {
                 break;
             case 0:
                 System.out.println("You choose to go back to the home page");
-                break;
-            case 8:
-                System.out.println("You choose go back to home page");
                 break;
             default:
                 System.out.println("Your option is not valid");
