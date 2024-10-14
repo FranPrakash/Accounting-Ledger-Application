@@ -262,9 +262,28 @@ public class AccountingApp {
 
         }
 
+        //Method Report menu - Option 1 Month to date transactions
+        public static void monthToDateTransactions() {
 
+            try {
+                //Create a FileInputStream object pointing to transaction.csv file
+                FileInputStream myfileInputStream = new FileInputStream("transaction.csv");
+                Scanner myScanner = new Scanner(myfileInputStream); //create a Scanner to reference the file to be read
+
+                while (myScanner.hasNextLine()) {
+                    String transactionLine = myScanner.nextLine();
+                    String[] transactionLineSplit = transactionLine.split("\\|");
+                    float monthToDateTransaction = Float.parseFloat(transactionLineSplit[0]);
+                }
+            } catch (Exception e) {
+                System.out.println("An error ocurred");
+
+
+            }
+
+
+        }
     }
-}
 
 
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
