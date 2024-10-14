@@ -1,13 +1,10 @@
 package com.pluralsight;
 
-import javax.print.DocFlavor;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.AbstractMap;
 import java.util.Scanner;
 
 public class AccountingApp {
@@ -239,7 +236,7 @@ public class AccountingApp {
 
         switch (userChoiceReportMenu) {
             case 1:
-                System.out.println("You choose Month to date transactions");
+                monthToDateTransactions();
                 break;
             case 2:
                 System.out.println("You choose previous month transactions");
@@ -261,38 +258,50 @@ public class AccountingApp {
 
 
         }
+    }
 
-        //Method Report menu - Option 1 Month to date transactions
-        public static void monthToDateTransactions() {
+    //Method Report menu - Option 1 Month to date transactions
+    public static void monthToDateTransactions() {
 
-            try {
-                //Create a FileInputStream object pointing to transaction.csv file
-                FileInputStream myfileInputStream = new FileInputStream("transaction.csv");
-                Scanner myScanner = new Scanner(myfileInputStream); //create a Scanner to reference the file to be read
+        try {
+            //Create a FileInputStream object pointing to transaction.csv file
+            FileInputStream myfileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myfileInputStream); //create a Scanner to reference the file to be read
 
-                while (myScanner.hasNextLine()) {
-                    String transactionLine = myScanner.nextLine();
-                    String[] transactionLineSplit = transactionLine.split("\\|");
-                    float monthToDateTransaction = Float.parseFloat(transactionLineSplit[0]);
+            while (myScanner.hasNextLine()) {
+                String transactionLine = myScanner.nextLine();
+                String[] transactionLineSplit = transactionLine.split("\\|");
+                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); // Converting from String to local date type
+                LocalDate todayDate = LocalDate.now(); // Store today date in the localdate
+                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date
+                //if (transactionDate >= startOfTheMonth && transactionDate <= todayDate) {
+                   // System.out.println(transactionLine);
                 }
-            } catch (Exception e) {
-                System.out.println("An error ocurred");
 
-
-            }
-
-
+            }catch (Exception e) {
+            System.out.println("An error ocurred");
         }
     }
 
+    public static void showPreviousMonthTransactions(){}
+
+
+
+
+
+
+    }
+
+
+
 
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
-
 // TODO: Create a method to show transactions by date (accept inputs start date and end date)
-// might use this method to address reports 1 to 4
-
-// TODO: Create a method to transactions by vendor name
-
-// TODO: Create a custom search method
+// TODO: Create a method to show previous month transactions
+// TODO: Create a method to show Year to date transactions
+// TODO: Create a method to display previous year transactions
+// TODO: Create a method to search the transactions by vendor name (option 5)
+// TODO: Create a method to go back to Ledger page
+// TODO: Create a custom search method (Challenge)
 
 
