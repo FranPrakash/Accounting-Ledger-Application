@@ -13,6 +13,10 @@ import java.util.Scanner;
 public class AccountingApp {
     public static void main(String[] args) {
 
+        showHomeScreen(); // Created this method so I can call it in the ledger menu option H and other places
+    }
+
+    public static void showHomeScreen() {
         Scanner myScanner = new Scanner(System.in);
 
         // Main Menu Home screen
@@ -130,7 +134,7 @@ public class AccountingApp {
                 showReportMenu();
                 break;
             case "H":
-                System.out.println("Show home screen");
+                showHomeScreen();
                 break;
             default:
                 System.out.println("Your option is not valid");
@@ -250,7 +254,7 @@ public class AccountingApp {
                 System.out.println("You choose search the transaction by vendor");
                 break;
             case 0:
-                System.out.println("You choose to go back to the home page");
+                showLedgerMenu();
                 break;
             default:
                 System.out.println("Your option is not valid");
@@ -264,11 +268,6 @@ public class AccountingApp {
 
 
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
-
-// TODO: Create a method to show Reports Menu to the user
-
-
-// TODO: Create a method to transactions by a certain type: deposits or payments
 
 // TODO: Create a method to show transactions by date (accept inputs start date and end date)
 // might use this method to address reports 1 to 4
