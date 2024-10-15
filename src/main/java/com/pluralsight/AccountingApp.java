@@ -11,6 +11,7 @@ public class AccountingApp {
     public static void main(String[] args) {
 
         showHomeScreen(); // Created this method so I can call it in the ledger menu option H and other places
+
     }
 
     public static void showHomeScreen() {
@@ -239,7 +240,7 @@ public class AccountingApp {
                 monthToDateTransactions();
                 break;
             case 2:
-                System.out.println("You choose see previous month transaction");
+                showPreviousMonthTransaction();
                 break;
             case 3:
                 System.out.println(" You choose Year to date transaction");
@@ -286,16 +287,21 @@ public class AccountingApp {
     }
 
     //Method Report menu - Show previous month transactions - option 2
-    public static void showYearToDateTransaction (){
+    public static void showPreviousMonthTransaction(){
      try {
          //Create a FileInputStream object pointing to transaction.csv file
          FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
          Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
 
+         //While loop to read the line
          while (myScanner.hasNextLine()) {
-             String transactionLine = myScanner.nextLine();
+             String transactionLine = myScanner.nextLine(); //Temporary store the transaction line
              String[] transactionLineSplit = transactionLine.split("\\|");
-             LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]);
+             LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); //Converting from String variable to local date type
+             LocalDate startDate = LocalDate.now().withDayOfMonth(1).minus(1);
+             if (transactionDate.getMonth() == LocalDate.now().getMonth().minus(1);
+             System.out.println(transactionLine);
+
 
 
          }
@@ -315,6 +321,7 @@ public class AccountingApp {
 
 
 
+// TODO:
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
 // TODO: Create a method to show transactions by date (accept inputs start date and end date)
 // TODO: Create a method to show previous month transactions

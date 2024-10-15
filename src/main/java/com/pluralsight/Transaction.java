@@ -33,10 +33,10 @@ public class Transaction {
 
   }
 
+  //new
   public Transaction(String properties) {
     this(properties.split("\\|")); // calling the constructor method
 
-//transactionLine.split("\\|");
   }
 
   @Override // ToStringMethod
