@@ -243,7 +243,7 @@ public class AccountingApp {
                 showPreviousMonthTransaction();
                 break;
             case 3:
-                System.out.println(" You choose Year to date transaction");
+                showYearToDateTransaction();
                 break;
             case 4:
                 System.out.println("You choose previous year transaction");
@@ -287,38 +287,62 @@ public class AccountingApp {
     }
 
     //Method Report menu - Show previous month transactions - option 2
-    public static void showPreviousMonthTransaction(){
-     try {
-         //Create a FileInputStream object pointing to transaction.csv file
-         FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-         Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
+    public static void showPreviousMonthTransaction() {
+        try {
+            //Create a FileInputStream object pointing to transaction.csv file
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
 
-         //While loop to read the line
-         while (myScanner.hasNextLine()) {
-             String transactionLine = myScanner.nextLine(); //Temporary store the transaction line
-             String[] transactionLineSplit = transactionLine.split("\\|");
-             LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); //Converting from String variable to local date type
-             LocalDate startDate = LocalDate.now().withDayOfMonth(1).minus(1);
-             if (transactionDate.getMonth() == LocalDate.now().getMonth().minus(1);
-             System.out.println(transactionLine);
+            //While loop to read the line
+            while (myScanner.hasNextLine()) {
+                String transactionLine = myScanner.nextLine(); //Temporary store the transaction line
+                String[] transactionLineSplit = transactionLine.split("\\|");
+                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); //Converting from String variable to local date type
+                // LocalDate startDate = LocalDate.now().withDayOfMonth(1).minus(1);
+                // if (transactionDate.getMonth() == LocalDate.now().getMonth().minus(1); // TODO : work in this logic
+                System.out.println(transactionLine);
+
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred");
+            e.printStackTrace(); //Identify the error and details about the exception
+        }
 
 
+    }
 
-         }
-     } catch (Exception e) {
-         System.out.println("An error occurred");
-         e.printStackTrace(); //Identify the error and details about the exception
-     }
+    //Create a method to show Year to date transaction. option 3
+    public static void showYearToDateTransaction() {
+        try {
+            //Create a FileInputStream object pointing to transaction.csv file
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
+
+
+            //While loop to read the line
+            while (myScanner.hasNextLine()) {
+                String transactionLine = myScanner.nextLine();
+                String[] transactionLineSplit = transactionLine.split("\\|");
+                LocalDate yearAgo = LocalDate.now().minusYears(1);
+                // create a date object for the transaction
+                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]);
+                if(transactionDate.isAfter(yearAgo)) {
+                    System.out.println(transactionLine);
+                }
+
+
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred");
+            e.printStackTrace();
+
+        }
 
 
     }
 
 
-
 }
-
-
-
 
 
 // TODO:
