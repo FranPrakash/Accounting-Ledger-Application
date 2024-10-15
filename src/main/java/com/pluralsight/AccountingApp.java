@@ -70,7 +70,7 @@ public class AccountingApp {
             myFileWriter.close();
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace(); // Show the system msg error to the user //Just want to implemet this here to learn
+            e.printStackTrace(); // Show the system msg error to the user //Just want to implement this here to learn
         }
 
 
@@ -86,7 +86,7 @@ public class AccountingApp {
             System.out.println("Please enter the vendor name: ");
             String vendorName = myScanner.nextLine();
             System.out.println("Please enter payment amount: ");
-            double paymentAmount = -1 * myScanner.nextDouble(); // -1 to show the payment as negative entrie
+            double paymentAmount = -1 * myScanner.nextDouble(); // -1* to show the payment value as negative entries.
 
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
@@ -96,7 +96,7 @@ public class AccountingApp {
             myFileWriter.close();
 
         } catch (Exception e) {
-            System.out.println("An unexpected error occured");
+            System.out.println("An unexpected error occurred");
             e.printStackTrace();
         }
 
@@ -186,7 +186,7 @@ public class AccountingApp {
             myScanner.close();
 
         } catch (Exception e) {
-            System.out.println("An unexpected error occured");
+            System.out.println("An unexpected error occurred");
             e.printStackTrace();
 
         }
@@ -205,14 +205,14 @@ public class AccountingApp {
                 String transactionLine = myScanner.nextLine();
                 String[] transactionLineSplit = transactionLine.split("\\|");
                 float transactionAmount = Float.parseFloat(transactionLineSplit[4]);
-                if (transactionAmount < 0)
+                if (transactionAmount < 0) // getting the negative value since payment has to be shown as negative
                     System.out.println(transactionLine);
             }
 
             myScanner.close();
 
         } catch (Exception e) {
-            System.out.println("An unexpected error occured");
+            System.out.println("An unexpected error occurred");
             e.printStackTrace();
         }
 
@@ -239,7 +239,7 @@ public class AccountingApp {
                 monthToDateTransactions();
                 break;
             case 2:
-                System.out.println("You choose previous month transactions");
+                showPreviousMonthTransactions();
                 break;
             case 3:
                 System.out.println(" You choose Year to date transaction");
@@ -265,34 +265,32 @@ public class AccountingApp {
 
         try {
             //Create a FileInputStream object pointing to transaction.csv file
-            FileInputStream myfileInputStream = new FileInputStream("transaction.csv");
-            Scanner myScanner = new Scanner(myfileInputStream); //create a Scanner to reference the file to be read
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
 
             while (myScanner.hasNextLine()) {
                 String transactionLine = myScanner.nextLine();
                 String[] transactionLineSplit = transactionLine.split("\\|");
-                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); // Converting from String to local date type
-                LocalDate todayDate = LocalDate.now(); // Store today date in the localdate
+                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); // Converting from String variable to local date type
+                LocalDate todayDate = LocalDate.now(); // Store today date in the local date
                 LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date
-                //if (transactionDate >= startOfTheMonth && transactionDate <= todayDate) {
-                   // System.out.println(transactionLine);
-                }
 
-            }catch (Exception e) {
-            System.out.println("An error ocurred");
+                if (transactionDate.compareTo(startOfTheMonth) >= 0 && transactionDate.compareTo(todayDate) <= 0) { //comparing the transaction date variable with the start of the month and today date //TODO:Work in this logic
+                    System.out.println(transactionLine);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("An error occurred");
+            e.printStackTrace(); //Identify the error and details about the exception
         }
     }
 
-    public static void showPreviousMonthTransactions(){}
+    //Method Report menu - Show previous month transactions
 
 
 
-
-
-
-    }
-
-
+}
 
 
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
