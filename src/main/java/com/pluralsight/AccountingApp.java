@@ -239,7 +239,7 @@ public class AccountingApp {
                 monthToDateTransactions();
                 break;
             case 2:
-                showPreviousMonthTransactions();
+                System.out.println("You choose see previous month transaction");
                 break;
             case 3:
                 System.out.println(" You choose Year to date transaction");
@@ -274,23 +274,45 @@ public class AccountingApp {
                 LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); // Converting from String variable to local date type
                 LocalDate todayDate = LocalDate.now(); // Store today date in the local date
                 LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date
-
-                if (transactionDate.compareTo(startOfTheMonth) >= 0 && transactionDate.compareTo(todayDate) <= 0) { //comparing the transaction date variable with the start of the month and today date //TODO:Work in this logic
+                (transactionDate.compareTo(startOfTheMonth) >=0 && transactionDate.compareTo(todayDate) <= 0) { //comparing the transaction date variable with the start of the month and today date //TODO:Work in this logic
                     System.out.println(transactionLine);
                 }
             }
-
+            myScanner.close();
         } catch (Exception e) {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
     }
 
-    //Method Report menu - Show previous month transactions
+    //Method Report menu - Show previous month transactions - option 2
+    public static void showYearToDateTransaction (){
+     try {
+         //Create a FileInputStream object pointing to transaction.csv file
+         FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+         Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
+
+         while (myScanner.hasNextLine()) {
+             String transactionLine = myScanner.nextLine();
+             String[] transactionLineSplit = transactionLine.split("\\|");
+             LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]);
+
+
+         }
+     } catch (Exception e) {
+         System.out.println("An error occurred");
+         e.printStackTrace(); //Identify the error and details about the exception
+     }
+
+
+    }
 
 
 
 }
+
+
+
 
 
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
