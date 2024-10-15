@@ -269,13 +269,13 @@ public class AccountingApp {
             Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
 
             while (myScanner.hasNextLine()) {
-                String transactionLine = myScanner.nextLine();
-                String[] transactionLineSplit = transactionLine.split("\\|");
-                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); // Converting from String variable to local date type
+
+                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Cnstructor
+
                 LocalDate todayDate = LocalDate.now(); // Store today date in the local date
                 LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date
-                (transactionDate.compareTo(startOfTheMonth) >=0 && transactionDate.compareTo(todayDate) <= 0) { //comparing the transaction date variable with the start of the month and today date //TODO:Work in this logic
-                    System.out.println(transactionLine);
+                if (!myTransaction.getDate().isBefore(startOfTheMonth)) { //comparing the transaction date variable with the start of the month and today date //TODO:Work in this logic
+                    System.out.println(myTransaction);
                 }
             }
             myScanner.close();
