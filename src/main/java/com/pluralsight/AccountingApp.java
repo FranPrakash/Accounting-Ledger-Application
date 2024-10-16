@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class AccountingApp {
     public static void main(String[] args) {
 
-        showHomeScreen(); // Created this method so I can call it in the ledger menu option H and other places
+        showHomeScreen(); // Created this method so I can call it in the ledger menu option HOME and other places
 
     }
 
@@ -67,18 +67,16 @@ public class AccountingApp {
 
             FileWriter myFileWriter = new FileWriter("transaction.csv", true); //Append true write one more line to the file
             String todayDeposit = date + "|" + time + "|" + description + "|" + vendorName + "|" + depositAmount + "\n";
-            myFileWriter.write(todayDeposit);
+            myFileWriter.write(todayDeposit); //TODO: work here
             myFileWriter.close();
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace(); // Show the system msg error to the user //Just want to implement this here to learn
+            e.printStackTrace(); // Show the system msg error to the user //Identify the error and details about the exception
         }
-
 
     } //Osmig help ends here
 
     // Create a method payment option of home screen menu
-
     public static void payment() {
         try {
             Scanner myScanner = new Scanner(System.in);
@@ -98,7 +96,7 @@ public class AccountingApp {
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace();
+            e.printStackTrace(); //Identify the error and details about the exception
         }
 
     }
@@ -116,7 +114,7 @@ public class AccountingApp {
         System.out.println("Type R to go to Reports Menu");
         System.out.println("Type H to go back to Home Screen");
 
-        String userChoiceLedger = myScanner.nextLine();
+        String userChoiceLedger = myScanner.nextLine(); //Scanner to receive user input
 
         switch (userChoiceLedger) {
             case "A":
@@ -139,17 +137,15 @@ public class AccountingApp {
                 break;
 
         }
-
+        myScanner.close();
     }
 
     // Method ledger menu to display option A all entries. I am using the Scanner method to read the transaction file and using a while loop to read until there's no more line.
     public static void showAllEntries() {
         try {
-
-            //create a FileInputStream object pointing to transaction.csv file
+            //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-            Scanner myScanner = new Scanner(myFileInputStream); // create a Scanner to reference the file to be read
-
+            Scanner myScanner = new Scanner(myFileInputStream); //Create a Scanner to reference the file to be read
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
@@ -162,7 +158,7 @@ public class AccountingApp {
 
         } catch (Exception e) {
             System.out.println("An unexpected error occured");
-            e.printStackTrace();
+            e.printStackTrace(); //Identify the error and details about the exception
 
         }
 
@@ -173,7 +169,7 @@ public class AccountingApp {
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-            Scanner myScanner = new Scanner(myFileInputStream);
+            Scanner myScanner = new Scanner(myFileInputStream); //Create a Scanner to reference the file to be read
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
@@ -188,8 +184,7 @@ public class AccountingApp {
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace();
-
+            e.printStackTrace();//Identify the error and details about the exception
         }
 
     }
@@ -200,10 +195,10 @@ public class AccountingApp {
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-            Scanner myScanner = new Scanner(myFileInputStream);
+            Scanner myScanner = new Scanner(myFileInputStream);//Create a Scanner to reference the file to be read
 
             //While loop to read until there is no more data
-            while (myScanner.hasNextLine()) {
+            while (myScanner.hasNextLine()) { //Checking if the scanner has another line. Run the whole block
                 String transactionLine = myScanner.nextLine();
                 String[] transactionLineSplit = transactionLine.split("\\|");
                 float transactionAmount = Float.parseFloat(transactionLineSplit[4]);
@@ -215,7 +210,7 @@ public class AccountingApp {
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace();
+            e.printStackTrace(); //Identify the error and details about the exception
         }
 
 
@@ -233,7 +228,7 @@ public class AccountingApp {
         System.out.println("Type 5 to search the transactions by Vendor");
         System.out.println("Type 0 to go back to the Ledger page ");
 
-        int userChoiceReportMenu = myScanner.nextInt();
+        int userChoiceReportMenu = myScanner.nextInt(); //Scanner to get user input
 
 
         switch (userChoiceReportMenu) {
@@ -247,10 +242,10 @@ public class AccountingApp {
                 showYearToDateTransaction();
                 break;
             case 4:
-                showPreviousYearTransaction();
+                showPreviousYearTransaction(); //TODO: FIX THIS METHOD
                 break;
             case 5:
-                searchTransactionByVendor();
+                searchTransactionByVendor(); // TODO: FIX THIS METHOD
                 break;
             case 0:
                 showLedgerMenu();
@@ -262,7 +257,7 @@ public class AccountingApp {
         }
     }
 
-    //Method Report menu - Option 1 Month to date transactions
+    //Method Report Menu - Option 1- Month to date transactions
     public static void monthToDateTransactions() {
 
         try {
@@ -292,7 +287,7 @@ public class AccountingApp {
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-            Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
+            Scanner myScanner = new Scanner(myFileInputStream); //Create a Scanner to reference the file to be read
 
             //While loop to read the line
             while (myScanner.hasNextLine()) {
@@ -327,18 +322,15 @@ public class AccountingApp {
 
                 LocalDate todayDate = LocalDate.now();
 
-
                 if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate)) // TODO: fix this logic
                     System.out.println(myTransaction.showDetails());
             }
             myScanner.close();
         } catch (Exception e) {
             System.out.println("An error occurred");
-            e.printStackTrace();
+            e.printStackTrace(); //Identify the error and details about the exception
 
         }
-
-
     }
 
     //Create a method to show PreviousYear Transaction // TODO : Finish this method
@@ -363,10 +355,9 @@ public class AccountingApp {
             myScanner.close();
         } catch (Exception e) {
             System.out.println("An error ocurred");
-            e.printStackTrace();
+            e.printStackTrace(); //Identify the error and details about the exception
         }
     }
-
 
     // Method to search the transaction by vendor - Option 5
     public static void searchTransactionByVendor() {
@@ -378,22 +369,20 @@ public class AccountingApp {
 
             Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
-           while (myScanner.hasNextLine()) {
-               String vendorSearch = myTransaction.getVendor();
-           }
+            while (myScanner.hasNextLine()) {
+                String vendorSearch = myTransaction.getVendor();
+            }
 
 
         } catch (Exception e) {
             System.out.println("An error ocurred");
-            e.printStackTrace();
+            e.printStackTrace(); //Identify the error and details about the exception
         }
-
     }
 
 }
 
 
-// TODO: Create a method to show previous month transactions
 // TODO: Create a method to show Year to date transactions
 // TODO: Create a method to display previous year transactions
 // TODO: Create a method to search the transactions by vendor name (option 5)
