@@ -347,7 +347,7 @@ public class AccountingApp {
                 LocalDate todayDate = LocalDate.now();//Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
                 //LocalDate todayYear = LocalDate.now().minus(1); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
 
-                if (myTransaction.getDate().getYear() == (todayDate.getYear()-1)) { // Comparing transaction month to previous month
+                if (myTransaction.getDate().getYear() == (todayDate.getYear() - 1)) { // Comparing transaction month to previous month
                     System.out.println(myTransaction.showDetails());
 
                 }
@@ -361,18 +361,21 @@ public class AccountingApp {
 
     // Method to search the transaction by vendor - Option 5
     public static void searchTransactionByVendor() {
+        Scanner mySc = new Scanner(System.in); //Scanner to get user input
+        System.out.println("What is the vendor name ? "); //Prompt user for vendor name
+        String vendorName = mySc.nextLine();
+
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv"); //Create a FileInputStream object pointing to transaction.csv file
             Scanner myScanner = new Scanner(myFileInputStream);//create a Scanner to reference the file to be read
 
-           while (myScanner.hasNextLine()) {
-               Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
-           if (myTransaction.getVendor() == ) { // Comparing transaction month to previous month
-                System.out.println(myTransaction.showDetails());
-               }
-          }
-
+            while (myScanner.hasNextLine()) {
+                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
+                if (myTransaction.getVendor().equals(vendorName)) { // Comparing transaction month to previous month
+                    System.out.println(myTransaction.showDetails());
+                }
+            }
 
         } catch (Exception e) {
             System.out.println("An error ocurred");

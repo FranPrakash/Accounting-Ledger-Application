@@ -19,8 +19,6 @@ public class Transaction {
         this.description = description;
         this.time = time;
         this.vendor = vendor;
-
-
     }
 
     //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
