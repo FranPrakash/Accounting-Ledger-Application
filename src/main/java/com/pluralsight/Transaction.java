@@ -23,7 +23,7 @@ public class Transaction {
 
     }
 
-    //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transactionline
+    //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
     public Transaction(String transactionLine) {
         String[] properties = transactionLine.split("\\|");
         this.amount = Float.parseFloat(properties[4]);
@@ -33,7 +33,6 @@ public class Transaction {
         this.vendor = properties[3]; // setting the value of description as the fourth element of properties array
 
     }
-
 
      //Method to show transaction details in a clean format
     public String showDetails() {
