@@ -21,6 +21,7 @@ public class Transaction {
         this.vendor = vendor;
     }
 
+    // TODO: Talk about this constructor
     //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
     public Transaction(String transactionLine) {
         String[] properties = transactionLine.split("\\|");

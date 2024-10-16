@@ -67,7 +67,7 @@ public class AccountingApp {
 
             FileWriter myFileWriter = new FileWriter("transaction.csv", true); //Append true write one more line to the file
             String todayDeposit = date + "|" + time + "|" + description + "|" + vendorName + "|" + depositAmount + "\n";
-            myFileWriter.write(todayDeposit); //TODO: work here
+            myFileWriter.write(todayDeposit); //Writting the today deposit in the file
             myFileWriter.close();
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
@@ -91,7 +91,7 @@ public class AccountingApp {
             LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
             FileWriter myFileWriter = new FileWriter("transaction.csv", true);
             String todayPayment = date + "|" + time + "|" + description + "|" + vendorName + "|" + paymentAmount + "\n";
-            myFileWriter.write(todayPayment);
+            myFileWriter.write(todayPayment); // writting
             myFileWriter.close();
 
         } catch (Exception e) {
@@ -149,9 +149,8 @@ public class AccountingApp {
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
-                String transactionLine; //Temporary store the transaction line
-                transactionLine = myScanner.nextLine();
-                System.out.println(transactionLine);
+                Transaction myTransaction = new Transaction(myScanner.nextLine());
+                System.out.println(myTransaction.showDetails());
             }
 
             myScanner.close();
@@ -173,11 +172,9 @@ public class AccountingApp {
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
-                String transactionLine = myScanner.nextLine();//Temporary store the transaction line
-                String[] transactionLineSplit = transactionLine.split("\\|"); // Create this String array so that I can split the transaction line variable and store it in the string array
-                float transactionAmount = Float.parseFloat(transactionLineSplit[4]); // Convert amount from string to float
-                if (transactionAmount > 0) //Making sure im getting the posit value as deposit and not the payment which is negative
-                    System.out.println(transactionLine);
+              Transaction myTransaction = new Transaction(myScanner.nextLine());
+                if (myTransaction.getAmount() > 0) //Making sure im getting the posit value as deposit and not the payment which is negative
+                    System.out.println(myTransaction.showDetails());
             }
 
             myScanner.close();
@@ -199,11 +196,9 @@ public class AccountingApp {
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) { //Checking if the scanner has another line. Run the whole block
-                String transactionLine = myScanner.nextLine();
-                String[] transactionLineSplit = transactionLine.split("\\|");
-                float transactionAmount = Float.parseFloat(transactionLineSplit[4]);
-                if (transactionAmount < 0) // getting the negative value since payment has to be shown as negative
-                    System.out.println(transactionLine);
+                Transaction myTransaction =new Transaction(myScanner.nextLine());
+                if (myTransaction.getAmount() < 0) // getting the negative value since payment has to be shown as negative
+                    System.out.println(myTransaction.showDetails());
             }
 
             myScanner.close();
