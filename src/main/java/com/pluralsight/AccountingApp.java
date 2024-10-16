@@ -250,7 +250,7 @@ public class AccountingApp {
                 showPreviousYearTransaction();
                 break;
             case 5:
-                System.out.println("You choose search the transaction by vendor");
+                searchTransactionByVendor();
                 break;
             case 0:
                 showLedgerMenu();
@@ -303,6 +303,7 @@ public class AccountingApp {
                     System.out.println(myTransaction.showDetails());
                 }
             }
+            myScanner.close();
         } catch (Exception e) {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
@@ -330,7 +331,7 @@ public class AccountingApp {
                 if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate)) // TODO: fix this logic
                     System.out.println(myTransaction.showDetails());
             }
-
+            myScanner.close();
         } catch (Exception e) {
             System.out.println("An error occurred");
             e.printStackTrace();
@@ -353,43 +354,45 @@ public class AccountingApp {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
                 LocalDate todayDate = LocalDate.now();//Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
-                LocalDate todayYear = LocalDate.now().minus(1); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
+                //LocalDate todayYear = LocalDate.now().minus(1); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
 
-                if (myTransaction.getDate().getYear() == todayDate.getYear().minus(1)) { // Comparing transaction month to previous month
-                    System.out.println(myTransaction.showDetails());
-
-                }
-
+                //if (myTransaction.getDate().getYear() == todayDate.getYear().minus(1)) { // Comparing transaction month to previous month
+                System.out.println(myTransaction.showDetails());
 
             }
+            myScanner.close();
+        } catch (Exception e) {
+            System.out.println("An error ocurred");
+            e.printStackTrace();
+        }
+    }
+
+
+    // Method to search the transaction by vendor - Option 5
+    public static void searchTransactionByVendor() {
+        try {
+
+            //Create a FileInputStream object pointing to transaction.csv file
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv"); //Create a FileInputStream object pointing to transaction.csv file
+            Scanner myScanner = new Scanner(myFileInputStream);//create a Scanner to reference the file to be read
+
+            Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
+
+           while (myScanner.hasNextLine()) {
+               String vendorSearch = myTransaction.getVendor();
+           }
+
 
         } catch (Exception e) {
             System.out.println("An error ocurred");
             e.printStackTrace();
         }
 
-
     }
-
-    // Method to search the transaction by vendor - Option 5
-    public static void searchTransactionByVendor() {
-
-        //Create a FileInputStream object pointing to transaction.csv file
-        FileInputStream myFileInputStream = new FileInputStream("transaction.csv"); ////Create a FileInputStream object pointing to transaction.csv file
-        Scanner myScanner = new Scanner(myFileInputStream);
-
-        Transaction myTransaction = new Transaction(myScanner.nextLine()))
-        ; //Passing one line of the file to the constructor that is being called. Making the transaction object
-
-
-    }
-
 
 }
 
 
-// TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
-// TODO: Create a method to show transactions by date (accept inputs start date and end date)
 // TODO: Create a method to show previous month transactions
 // TODO: Create a method to show Year to date transactions
 // TODO: Create a method to display previous year transactions
