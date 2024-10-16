@@ -247,7 +247,7 @@ public class AccountingApp {
                 showYearToDateTransaction();
                 break;
             case 4:
-                System.out.println("You choose previous year transaction");
+                showPreviousYearTransaction();
                 break;
             case 5:
                 System.out.println("You choose search the transaction by vendor");
@@ -270,13 +270,13 @@ public class AccountingApp {
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
             Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
 
-            while (myScanner.hasNextLine()) {
+            while (myScanner.hasNextLine()) { //Checking if the scanner has another line. Run the whole block
 
-                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Cnstructor
+                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
-                LocalDate todayDate = LocalDate.now(); // Store today date in the local date
-                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date
-                if (!myTransaction.getDate().isBefore(startOfTheMonth)) { //comparing the transaction date variable with the start of the month and today date //TODO:Work in this logic
+                LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable . In declaring this variable so I can use in the IF condition
+                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date // In the month thta today date is get the first day of the month
+                if (!myTransaction.getDate().isBefore(startOfTheMonth) && !myTransaction.getDate().isAfter(todayDate)) { //comparing the transaction date  with the start of the month and today date
                     System.out.println(myTransaction);
                 }
             }
@@ -327,7 +327,7 @@ public class AccountingApp {
                 LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]);
                 // create a date object for the transaction
                 LocalDate yearAgo = LocalDate.now().minusYears(1);
-                if(transactionDate.isAfter(yearAgo)) {
+                if (transactionDate.isAfter(yearAgo)) {
                     System.out.println(transactionLine);
                 }
 
@@ -341,31 +341,31 @@ public class AccountingApp {
 
 
     }
+
     //Create a method to show PreviousYear Transaction // TODO : Finish this method
     public static void showPreviousYearTransaction() {
 
         try {
+            //Create a FileInputStream object pointing to transaction.csv file
+            FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
+            Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
+
+            while (myScanner.hasNextLine()) {
+                String transactionLine = myScanner.nextLine(); //Temporary store the transaction line
+                String[] transactionLineSplit = transactionLine.split("\\|");
+                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); // converting string to Local date
+                LocalDate yearAgo = LocalDate.now().minusYears(1);
+                if (transactionDate.isBefore(yearAgo)) {
+                    System.out.println(transactionLine);
+                }
 
 
-        //Create a FileInputStream object pointing to transaction.csv file
-        FileInputStream myFileInputStream = new FileInputStream( "transaction.csv");
-        Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
-
-        while (myScanner.hasNextLine()) {
-            String transactionLine = myScanner.nextLine(); //Temporary store the transaction line
-            String[] transactionLineSplit = transactionLine.split("\\|");
-            LocalDate yearAgo = LocalDate.now().minusYears();
-
-
-
-        }
+            }
 
         } catch (Exception e) {
             System.out.println("An error ocurred");
             e.printStackTrace();
         }
-
-
 
 
     }
@@ -374,7 +374,7 @@ public class AccountingApp {
 }
 
 
-// TODO:
+
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)
 // TODO: Create a method to show transactions by date (accept inputs start date and end date)
 // TODO: Create a method to show previous month transactions
