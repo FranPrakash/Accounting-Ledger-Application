@@ -275,9 +275,9 @@ public class AccountingApp {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
                 LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable . In declaring this variable so I can use in the IF condition
-                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1); // Store the first day of the month in local date // In the month thta today date is get the first day of the month
+                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month tha today date is get the first day of the month
                 if (!myTransaction.getDate().isBefore(startOfTheMonth) && !myTransaction.getDate().isAfter(todayDate)) { //comparing the transaction date  with the start of the month and today date
-                    System.out.println(myTransaction);
+                    System.out.println(myTransaction.showDetails());
                 }
             }
             myScanner.close();
@@ -296,13 +296,12 @@ public class AccountingApp {
 
             //While loop to read the line
             while (myScanner.hasNextLine()) {
-                String transactionLine = myScanner.nextLine(); //Temporary store the transaction line
-                String[] transactionLineSplit = transactionLine.split("\\|");
-                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]); //Converting from String variable to local date type
-                // LocalDate startDate = LocalDate.now().withDayOfMonth(1).minus(1);
-                // if (transactionDate.getMonth() == LocalDate.now().getMonth().minus(1); // TODO : work in this logic and finish this method
-                System.out.println(transactionLine);
 
+                Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making the transaction object
+                LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable . In declaring this variable so I can use in the IF condition
+                if (myTransaction.getDate().getMonth() == todayDate.getMonth().minus(1)) { // Comparing transaction month to previous month
+                    System.out.println(myTransaction.showDetails());
+                }
             }
         } catch (Exception e) {
             System.out.println("An error occurred");
@@ -330,8 +329,6 @@ public class AccountingApp {
                 if (transactionDate.isAfter(yearAgo)) {
                     System.out.println(transactionLine);
                 }
-
-
             }
         } catch (Exception e) {
             System.out.println("An error occurred");
@@ -372,7 +369,6 @@ public class AccountingApp {
 
 
 }
-
 
 
 // TODO: Create a method to load transactions from the file to some data structure (maybe Hashmap or ArrayList)

@@ -2,7 +2,6 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class Transaction {
 
@@ -24,9 +23,9 @@ public class Transaction {
 
     }
 
-    //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.
-    public Transaction(String line) {
-        String[] properties = line.split ("\\|"); //
+    //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transactionline
+    public Transaction(String transactionLine) {
+        String[] properties = transactionLine.split("\\|");
         this.amount = Float.parseFloat(properties[4]);
         this.date = LocalDate.parse(properties[0]);
         this.description = properties[2]; // setting the value of description as the third element of properties array
@@ -35,15 +34,10 @@ public class Transaction {
 
     }
 
-    //new
-    /*public Transaction(String properties) {
-        this(properties.split("\\|")); // calling the constructor method
 
-    } */
-
-    @Override // ToStringMethod
-    public String toString() {
-        return "Date: " + this.date + "|" + "Time: " + this.time + "|" + "Vendor: " + this.vendor + "|" + "Amount:" + this.amount + "|" + "Description: " + this.description;
+     //Method to show transaction details in a clean format
+    public String showDetails() {
+        return "Date: " + this.date + "|" + "Time: " + this.time + "|" + "Description: " + this.description + "|" + "Vendor: " + this.vendor + "|" + "Amount:" + this.amount ;
 
     }
 
