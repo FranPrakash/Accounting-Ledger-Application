@@ -275,7 +275,7 @@ public class AccountingApp {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
                 LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable . In declaring this variable so I can use in the IF condition
-                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month tha today date is get the first day of the month
+                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month thaT today date is get the first day of the month
                 if (!myTransaction.getDate().isBefore(startOfTheMonth) && !myTransaction.getDate().isAfter(todayDate)) { //comparing the transaction date  with the start of the month and today date
                     System.out.println(myTransaction.showDetails());
                 }
@@ -321,15 +321,16 @@ public class AccountingApp {
 
             //While loop to read the line
             while (myScanner.hasNextLine()) {
-                String transactionLine = myScanner.nextLine();
-                String[] transactionLineSplit = transactionLine.split("\\|");
-                LocalDate transactionDate = LocalDate.parse(transactionLineSplit[0]);
-                // create a date object for the transaction
-                LocalDate yearAgo = LocalDate.now().minusYears(1);
-                if (transactionDate.isAfter(yearAgo)) {
-                    System.out.println(transactionLine);
+
+                Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making the transaction object
+
+                LocalDate todayDate = LocalDate.now();
+
+
+                if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate)) // TODO: fix this logic
+                    System.out.println(myTransaction.showDetails());
                 }
-            }
+
         } catch (Exception e) {
             System.out.println("An error occurred");
             e.printStackTrace();
