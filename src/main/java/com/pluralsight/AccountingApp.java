@@ -8,9 +8,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class AccountingApp {
+
     public static void main(String[] args) {
 
-        showHomeScreen(); // Created this method so I can call it in the ledger menu option HOME and other places
+        showHomeScreen(); // Calling the method home screen when the application runs for the first time
     }
 
     public static void showHomeScreen() {
@@ -45,29 +46,28 @@ public class AccountingApp {
         }
     }
 
-
     //Create a method to prompt the user for the deposit information and save it to the CSV file
     //Osmig help
     public static void deposit() {
-        // Try catch to catch the exception error
-        try {
-            Scanner myScanner = new Scanner(System.in); // Scanner to receive user input
-            // Prompt the user questions
-            System.out.println("Please enter the description");
-            String description = myScanner.nextLine();
-            System.out.println("Enter the Vendor name");
-            String vendorName = myScanner.nextLine();
-            System.out.println("Please enter the deposit amount");
-            float depositAmount = myScanner.nextFloat();
+        Scanner myScanner = new Scanner(System.in); // Scanner to receive user input
+        // Prompt the user questions
+        System.out.println("Please enter the description");
+        String description = myScanner.nextLine();
+        System.out.println("Enter the Vendor name");
+        String vendorName = myScanner.nextLine();
+        System.out.println("Please enter the deposit amount");
+        float depositAmount = myScanner.nextFloat();
 
-            //Local date and Local time data type to be inserted in the CSV file as the Capstone instructions says
-            LocalDate date = LocalDate.now();
-            LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS); // Calling the truncated method to remove the millisecond
+        //Local date and Local time data type to be inserted in the CSV file as the Capstone instructions says // each line in the file has that
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS); // Calling the truncated method to remove the millisecond
 
-            FileWriter myFileWriter = new FileWriter("transaction.csv", true); //Append true write one more line to the file //TODO :
+        try { //Try catch to catch the exception error
+            FileWriter myFileWriter = new FileWriter("transaction.csv", true); // Creating the file writer objec.t APPEND True write one more line to the file
             String todayDeposit = date + "|" + time + "|" + description + "|" + vendorName + "|" + depositAmount + "\n"; // Transaction.csv file structure
             myFileWriter.write(todayDeposit); //Using my file writing to write the today deposit in the file
             myFileWriter.close();
+            myScanner.close();
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
@@ -77,7 +77,6 @@ public class AccountingApp {
 
     // Create a method payment option of home screen menu (Option P)
     public static void payment() {
-
         Scanner myScanner = new Scanner(System.in); //Scanner to get use input
         //Prompt the user questions
         System.out.println("Please enter the description: ");
@@ -90,8 +89,8 @@ public class AccountingApp {
         try {
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS); //Calling the truncated method to remove the millisecond
-            FileWriter myFileWriter = new FileWriter("transaction.csv", true); //TODO:
-            String todayPayment = date + "|" + time + "|" + description + "|" + vendorName + "|" + paymentAmount + "\n"; //Transaction.csv file structure
+            FileWriter myFileWriter = new FileWriter("transaction.csv", true); // Writing to the file
+            String todayPayment = date + "|" + time + "|" + description + "|" + vendorName + "|" + paymentAmount + "\n"; //Concatenating what I want to write to the file
             myFileWriter.write(todayPayment); // Using my file writing to write today Payment in the file
             myFileWriter.close();
 
@@ -128,7 +127,7 @@ public class AccountingApp {
                 showReportMenu();
                 break;
             case "H":
-                showHomeScreen(); //Calling this method in the main class
+                showHomeScreen(); //Calling home screen method
                 break;
             default:
                 System.out.println("Your option is not valid");
@@ -144,10 +143,10 @@ public class AccountingApp {
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
             Scanner myScanner = new Scanner(myFileInputStream); //Create a Scanner to reference the file to be read
 
-            //While loop to read until there is no more data
+            //While loop to read until there is no more data // hasNextLine() method checks if there is another line in the file
             while (myScanner.hasNextLine()) {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
-                System.out.println(myTransaction.showDetails());
+                System.out.println(myTransaction.showDetails()); //show details is a method used to show transaction details in a clean format
             }
             myScanner.close();
         } catch (Exception e) {
@@ -216,7 +215,7 @@ public class AccountingApp {
         //Switch statement based on the user choice I can do different things.
         switch (userChoiceReportMenu) {
             case 1:
-                showMonthToDateTransactions();
+                showMonthToDateTransactions(); // Calling the methods
                 break;
             case 2:
                 showPreviousMonthTransaction();
@@ -250,7 +249,8 @@ public class AccountingApp {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
                 LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable. I am declaring this variable so I can use in the IF condition
-                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month that today date is get the first day of the month
+                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month today date is getting the first day of the month
+                //Got help from Sameem in this if statement
                 if (!myTransaction.getDate().isBefore(startOfTheMonth) && !myTransaction.getDate().isAfter(todayDate)) { //comparing the transaction date  with the start of the month and today date
                     System.out.println(myTransaction.showDetails());
                 }
@@ -271,10 +271,9 @@ public class AccountingApp {
 
             //While loop to read the line
             while (myScanner.hasNextLine()) {
-
                 Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making the transaction object
                 LocalDate todayDate = LocalDate.now(); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
-                if (myTransaction.getDate().getMonth() == todayDate.getMonth().minus(1)) { // Comparing transaction month to previous month. Left hand month of transaction, right hand previous mont
+                if (myTransaction.getDate().getMonth() == todayDate.getMonth().minus(1)) { // Comparing transaction month to previous month. Left hand month of transaction, right hand previous month
                     System.out.println(myTransaction.showDetails());
                 }
             }
@@ -299,7 +298,7 @@ public class AccountingApp {
 
                 LocalDate todayDate = LocalDate.now(); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
 
-                if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate))
+                if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate)) // Comparing the transaction date and year with today year, if this is true display my trans
                     System.out.println(myTransaction.showDetails());
             }
             myScanner.close();
@@ -334,6 +333,7 @@ public class AccountingApp {
 
     // Method to search the transaction by vendor - Option 5
     public static void searchTransactionByVendor() {
+        //Staring by getting user input
         Scanner mySc = new Scanner(System.in); //Scanner to get user input
         System.out.println("What is the vendor name ? "); //Prompt user for vendor name
         String vendorName = mySc.nextLine();
@@ -344,8 +344,10 @@ public class AccountingApp {
             Scanner myScanner = new Scanner(myFileInputStream);//create a Scanner to reference the file to be read
 
             while (myScanner.hasNextLine()) {
+
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
-                if (myTransaction.getVendor().equals(vendorName)) { // Comparing transaction month to previous month
+
+                if (myTransaction.getVendor().equals(vendorName)) { // Condition to check if get vendor and get name are equal if its true print my transaction
                     System.out.println(myTransaction.showDetails());
                 }
             }
@@ -356,12 +358,3 @@ public class AccountingApp {
         }
     }
 }
-
-
-
-
-
-
-
-
-

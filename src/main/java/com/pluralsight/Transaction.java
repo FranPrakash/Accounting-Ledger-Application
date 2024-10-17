@@ -21,19 +21,18 @@ public class Transaction {
         this.vendor = vendor;
     }
 
-    // Help from Sameem
-    //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
+    // I got help from Sameem to create this Constructor and Method
+    //Constructor accept a string as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
     public Transaction(String transactionLine) {
-        String[] properties = transactionLine.split("\\|");
+        String[] properties = transactionLine.split("\\|"); // Splting the line with pipe
         this.amount = Float.parseFloat(properties[4]);
         this.date = LocalDate.parse(properties[0]);
         this.description = properties[2]; // setting the value of description as the third element of properties array
         this.time = LocalTime.parse(properties[1]);
         this.vendor = properties[3]; // setting the value of description as the fourth element of properties array
-
     }
 
-     //Method to show transaction details in a clean format
+    //Method to show transaction details in a clean format
     public String showDetails() {
         return "Date: " + this.date + "|" + "Time: " + this.time + "|" + "Description: " + this.description + "|" + "Vendor: " + this.vendor + "|" + "Amount:" + this.amount ;
 
