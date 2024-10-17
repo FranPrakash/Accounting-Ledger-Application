@@ -24,7 +24,7 @@ public class Transaction {
     // I got help from Sameem to create this Constructor and Method
     //Constructor accept a string as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
     public Transaction(String transactionLine) {
-        String[] properties = transactionLine.split("\\|"); // Splting the line with pipe
+        String[] properties = transactionLine.split("\\|"); //Splitting the line with a pipe delimiter
         this.amount = Float.parseFloat(properties[4]);
         this.date = LocalDate.parse(properties[0]);
         this.description = properties[2]; // setting the value of description as the third element of properties array

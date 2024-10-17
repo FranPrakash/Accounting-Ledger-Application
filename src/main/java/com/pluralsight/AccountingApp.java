@@ -21,11 +21,12 @@ public class AccountingApp {
         System.out.println("Welcome to the Accounting App!");
         System.out.println("Type D to add a Deposit");
         System.out.println("Type P to make a Payment");
-        System.out.println("Type L to go to  Ledger screen display");
+        System.out.println("Type L to go to  Ledger screen Menu");
         System.out.println("Type X to Exit");
 
         //Variable choice to receive user input
         String userChoice = myScanner.nextLine();
+
 
         //Switch statement to get user choice. Overall strategy create different method for different actions that the user want to take
         switch (userChoice) { //Using variable user choice in switch statement to decide what to run
@@ -44,10 +45,11 @@ public class AccountingApp {
                 System.out.println("Your option is not valid");
                 break;
         }
+        myScanner.close();
     }
 
     //Create a method to prompt the user for the deposit information and save it to the CSV file
-    //Osmig help
+    //Got hel from Osmig
     public static void deposit() {
         Scanner myScanner = new Scanner(System.in); // Scanner to receive user input
         // Prompt the user questions
@@ -67,12 +69,13 @@ public class AccountingApp {
             String todayDeposit = date + "|" + time + "|" + description + "|" + vendorName + "|" + depositAmount + "\n"; // Transaction.csv file structure
             myFileWriter.write(todayDeposit); //Using my file writing to write the today deposit in the file
             myFileWriter.close();
-            myScanner.close();
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
             e.printStackTrace(); //Show the system msg error to the user, it Identifies the error and details about the exception
         }
+      myScanner.close();
+
     } //Osmig help ends here
 
     // Create a method payment option of home screen menu (Option P)
@@ -98,6 +101,7 @@ public class AccountingApp {
             System.out.println("An unexpected error occurred");
             e.printStackTrace(); //Show the system msg error to the user, it Identifies the error and details about the exception
         }
+        //showHomeScreen();
     }
 
     //Method for ledgerMenu option L (Ledger Display)
@@ -145,6 +149,7 @@ public class AccountingApp {
 
             //While loop to read until there is no more data // hasNextLine() method checks if there is another line in the file
             while (myScanner.hasNextLine()) {
+
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
                 System.out.println(myTransaction.showDetails()); //show details is a method used to show transaction details in a clean format
             }
@@ -153,6 +158,7 @@ public class AccountingApp {
             System.out.println("An unexpected error occured");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showLedgerMenu();
     }
 
     //Method used to display deposit entry Ledger Menu - Option D
@@ -175,6 +181,7 @@ public class AccountingApp {
             System.out.println("An unexpected error occurred");
             e.printStackTrace();//Identify the error and details about the exception
         }
+        showLedgerMenu();
     }
 
     //Method to display only payment of Ledger menu - Option P
@@ -196,6 +203,7 @@ public class AccountingApp {
             System.out.println("An unexpected error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showLedgerMenu();
     }
 
     //Method Reports Menu - Home Screen
@@ -209,9 +217,10 @@ public class AccountingApp {
         System.out.println("Type 3 to display Year do Date transactions");
         System.out.println("Type 4 to display previous year transactions");
         System.out.println("Type 5 to search the transactions by Vendor");
-        System.out.println("Type 0 to go back to the Ledger page ");
+        System.out.println("Type 0 to go back to the Ledger Menu");
 
         int userChoiceReportMenu = myScanner.nextInt(); //Scanner to get user input
+
         //Switch statement based on the user choice I can do different things.
         switch (userChoiceReportMenu) {
             case 1:
@@ -260,6 +269,7 @@ public class AccountingApp {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showReportMenu();
     }
 
     // Method Report menu - Show previous month transactions - option 2
@@ -282,6 +292,7 @@ public class AccountingApp {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showReportMenu();
     }
 
     //Create a method to show Year to date transaction. option 3
@@ -306,6 +317,7 @@ public class AccountingApp {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showReportMenu();
     }
 
     //Create a method to show PreviousYear Transaction - Option 4 Report menu
@@ -329,6 +341,7 @@ public class AccountingApp {
             System.out.println("An error ocurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showReportMenu();
     }
 
     // Method to search the transaction by vendor - Option 5
@@ -356,5 +369,6 @@ public class AccountingApp {
             System.out.println("An error ocurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
+        showReportMenu();
     }
 }
