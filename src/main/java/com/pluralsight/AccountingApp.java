@@ -194,7 +194,7 @@ public class AccountingApp {
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) { //Checking if the scanner has another line. Run the whole block
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
-                if (myTransaction.getAmount() < 0) // getting the negative value since payment has to be shown as negative
+                if (myTransaction.getAmount() < 0) // Checking for negative value since payment has to be shown as negative
                     System.out.println(myTransaction.showDetails());
             }
             myScanner.close();

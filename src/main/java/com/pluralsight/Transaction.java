@@ -22,7 +22,7 @@ public class Transaction {
     }
 
     // I got help from Sameem to create this Constructor and Method
-    //Constructor accept a string as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
+    //accept a string as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
     public Transaction(String transactionLine) {
         String[] properties = transactionLine.split("\\|"); //Splitting the line with a pipe delimiter
         this.amount = Float.parseFloat(properties[4]);
