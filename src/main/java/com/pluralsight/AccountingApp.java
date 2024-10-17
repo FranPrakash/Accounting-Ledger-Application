@@ -11,24 +11,22 @@ public class AccountingApp {
     public static void main(String[] args) {
 
         showHomeScreen(); // Created this method so I can call it in the ledger menu option HOME and other places
-
     }
 
     public static void showHomeScreen() {
-        Scanner myScanner = new Scanner(System.in);
+        Scanner myScanner = new Scanner(System.in); //Scanner to get user inputs
 
-        // Main Menu Home screen
+        // Main Menu Home screen - Prompt the user questions
         System.out.println("Welcome to the Accounting App!");
         System.out.println("Type D to add a Deposit");
         System.out.println("Type P to make a Payment");
         System.out.println("Type L to go to  Ledger screen display");
         System.out.println("Type X to Exit");
 
-        //Variable to receive user input
+        //Variable choice to receive user input
         String userChoice = myScanner.nextLine();
 
         //Switch statement to get user choice. Overall strategy create different method for different actions that the user want to take
-
         switch (userChoice) { //Using variable user choice in switch statement to decide what to run
             case "D":
                 deposit(); //run the deposit method
@@ -40,20 +38,21 @@ public class AccountingApp {
                 showLedgerMenu();
                 break;
             case "X":
-                return; //returns to the computer - go backs to where it was called so the user can exit the application
+                return; //Exit the application (In this option I added return to go backs to where it was called, so the user can exit the application)
             default:
                 System.out.println("Your option is not valid");
                 break;
         }
     }
 
-    //Osmig help
-    //Create a method to prompt the user for the deposit information and save it to the CSV file
 
+    //Create a method to prompt the user for the deposit information and save it to the CSV file
+    //Osmig help
     public static void deposit() {
         // Try catch to catch the exception error
         try {
             Scanner myScanner = new Scanner(System.in); // Scanner to receive user input
+            // Prompt the user questions
             System.out.println("Please enter the description");
             String description = myScanner.nextLine();
             System.out.println("Enter the Vendor name");
@@ -61,52 +60,51 @@ public class AccountingApp {
             System.out.println("Please enter the deposit amount");
             float depositAmount = myScanner.nextFloat();
 
-            //Local date and local time method to be inserted in the CSv file as the instructions says
+            //Local date and Local time data type to be inserted in the CSV file as the Capstone instructions says
             LocalDate date = LocalDate.now();
-            LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
+            LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS); // Calling the truncated method to remove the millisecond
 
-            FileWriter myFileWriter = new FileWriter("transaction.csv", true); //Append true write one more line to the file
-            String todayDeposit = date + "|" + time + "|" + description + "|" + vendorName + "|" + depositAmount + "\n";
-            myFileWriter.write(todayDeposit); //Writting the today deposit in the file
+            FileWriter myFileWriter = new FileWriter("transaction.csv", true); //Append true write one more line to the file //TODO :
+            String todayDeposit = date + "|" + time + "|" + description + "|" + vendorName + "|" + depositAmount + "\n"; // Transaction.csv file structure
+            myFileWriter.write(todayDeposit); //Using my file writing to write the today deposit in the file
             myFileWriter.close();
+
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace(); // Show the system msg error to the user //Identify the error and details about the exception
+            e.printStackTrace(); //Show the system msg error to the user, it Identifies the error and details about the exception
         }
-
     } //Osmig help ends here
 
-    // Create a method payment option of home screen menu
+    // Create a method payment option of home screen menu (Option P)
     public static void payment() {
-        try {
-            Scanner myScanner = new Scanner(System.in);
-            System.out.println("Please enter the description: ");
-            String description = myScanner.nextLine();
-            System.out.println("Please enter the vendor name: ");
-            String vendorName = myScanner.nextLine();
-            System.out.println("Please enter payment amount: ");
-            double paymentAmount = -1 * myScanner.nextDouble(); // -1* to show the payment value as negative entries.
 
+        Scanner myScanner = new Scanner(System.in); //Scanner to get use input
+        //Prompt the user questions
+        System.out.println("Please enter the description: ");
+        String description = myScanner.nextLine();
+        System.out.println("Please enter the vendor name: ");
+        String vendorName = myScanner.nextLine();
+        System.out.println("Please enter payment amount: ");
+        double paymentAmount = -1 * myScanner.nextDouble(); // -1* to show the payment value as negative entries.
+        myScanner.close();
+        try {
             LocalDate date = LocalDate.now();
-            LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
-            FileWriter myFileWriter = new FileWriter("transaction.csv", true);
-            String todayPayment = date + "|" + time + "|" + description + "|" + vendorName + "|" + paymentAmount + "\n";
-            myFileWriter.write(todayPayment); // writting
+            LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS); //Calling the truncated method to remove the millisecond
+            FileWriter myFileWriter = new FileWriter("transaction.csv", true); //TODO:
+            String todayPayment = date + "|" + time + "|" + description + "|" + vendorName + "|" + paymentAmount + "\n"; //Transaction.csv file structure
+            myFileWriter.write(todayPayment); // Using my file writing to write today Payment in the file
             myFileWriter.close();
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
-            e.printStackTrace(); //Identify the error and details about the exception
+            e.printStackTrace(); //Show the system msg error to the user, it Identifies the error and details about the exception
         }
-
     }
 
-
-    //Method for ledgerMenu option
+    //Method for ledgerMenu option L (Ledger Display)
     public static void showLedgerMenu() {
-
-        Scanner myScanner = new Scanner(System.in);
-
+        Scanner myScanner = new Scanner(System.in); //Scanner to get input from the users
+        //Prompt the user questions
         System.out.println("Welcome to the Ledger Menu!");
         System.out.println("Type A to display all entries");
         System.out.println("Type D to display deposit entries");
@@ -114,8 +112,8 @@ public class AccountingApp {
         System.out.println("Type R to go to Reports Menu");
         System.out.println("Type H to go back to Home Screen");
 
-        String userChoiceLedger = myScanner.nextLine(); //Scanner to receive user input
-
+        String userChoiceLedger = myScanner.nextLine(); //Scanner to receive user choice input
+        //switch statement based on the user choice I can do different things. (I have 4 options, whenever I have a scenario that there is a menu is better to use switch)
         switch (userChoiceLedger) {
             case "A":
                 showAllEntries();
@@ -130,12 +128,11 @@ public class AccountingApp {
                 showReportMenu();
                 break;
             case "H":
-                showHomeScreen();
+                showHomeScreen(); //Calling this method in the main class
                 break;
             default:
                 System.out.println("Your option is not valid");
                 break;
-
         }
         myScanner.close();
     }
@@ -149,18 +146,14 @@ public class AccountingApp {
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
-                Transaction myTransaction = new Transaction(myScanner.nextLine());
+                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
                 System.out.println(myTransaction.showDetails());
             }
-
             myScanner.close();
-
         } catch (Exception e) {
             System.out.println("An unexpected error occured");
             e.printStackTrace(); //Identify the error and details about the exception
-
         }
-
     }
 
     //Method used to display deposit entry Ledger Menu - Option D
@@ -172,23 +165,21 @@ public class AccountingApp {
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) {
-              Transaction myTransaction = new Transaction(myScanner.nextLine());
-                if (myTransaction.getAmount() > 0) //Making sure im getting the posit value as deposit and not the payment which is negative
-                    System.out.println(myTransaction.showDetails());
-            }
+                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
 
+                if (myTransaction.getAmount() > 0) //Making sure im getting the positive value as deposit and not the payment which is negative
+                    System.out.println(myTransaction.showDetails()); //Show details method that show transaction details in a clean format
+            }
             myScanner.close();
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
             e.printStackTrace();//Identify the error and details about the exception
         }
-
     }
 
     //Method to display only payment of Ledger menu - Option P
     public static void displayPaymentEntries() {
-
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
@@ -196,25 +187,23 @@ public class AccountingApp {
 
             //While loop to read until there is no more data
             while (myScanner.hasNextLine()) { //Checking if the scanner has another line. Run the whole block
-                Transaction myTransaction =new Transaction(myScanner.nextLine());
+                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
                 if (myTransaction.getAmount() < 0) // getting the negative value since payment has to be shown as negative
                     System.out.println(myTransaction.showDetails());
             }
-
             myScanner.close();
 
         } catch (Exception e) {
             System.out.println("An unexpected error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
-
-
     }
 
-    //Method Reports menu
+    //Method Reports Menu - Home Screen
     public static void showReportMenu() {
-
+        //Scanner to accept user input
         Scanner myScanner = new Scanner(System.in);
+        //Prompt the user questions
         System.out.println("Welcome to the Reports Menu!");
         System.out.println("Type 1 to display Month to Date transactions");
         System.out.println("Type 2 to display Previous Month transactions");
@@ -224,11 +213,10 @@ public class AccountingApp {
         System.out.println("Type 0 to go back to the Ledger page ");
 
         int userChoiceReportMenu = myScanner.nextInt(); //Scanner to get user input
-
-
+        //Switch statement based on the user choice I can do different things.
         switch (userChoiceReportMenu) {
             case 1:
-                monthToDateTransactions();
+                showMonthToDateTransactions();
                 break;
             case 2:
                 showPreviousMonthTransaction();
@@ -237,35 +225,32 @@ public class AccountingApp {
                 showYearToDateTransaction();
                 break;
             case 4:
-                showPreviousYearTransaction(); //TODO: FIX THIS METHOD
+                showPreviousYearTransaction();
                 break;
             case 5:
-                searchTransactionByVendor(); // TODO: FIX THIS METHOD
+                searchTransactionByVendor();
                 break;
             case 0:
                 showLedgerMenu();
                 break;
             default:
                 System.out.println("Your option is not valid");
-
-
         }
     }
 
-    //Method Report Menu - Option 1- Month to date transactions
-    public static void monthToDateTransactions() {
-
+    //Method Report Menu - Option 1- Show Month to date transactions
+    public static void showMonthToDateTransactions() {
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
-            Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
+            Scanner myScanner = new Scanner(myFileInputStream); //Create a Scanner to reference the file to be read
 
             while (myScanner.hasNextLine()) { //Checking if the scanner has another line. Run the whole block
 
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
-                LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable . In declaring this variable so I can use in the IF condition
-                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month thaT today date is get the first day of the month
+                LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable. I am declaring this variable so I can use in the IF condition
+                LocalDate startOfTheMonth = todayDate.withDayOfMonth(1);// Store the first day of the month in local date // In the month that today date is get the first day of the month
                 if (!myTransaction.getDate().isBefore(startOfTheMonth) && !myTransaction.getDate().isAfter(todayDate)) { //comparing the transaction date  with the start of the month and today date
                     System.out.println(myTransaction.showDetails());
                 }
@@ -277,7 +262,7 @@ public class AccountingApp {
         }
     }
 
-    // TODO : Method Report menu - Show previous month transactions - option 2
+    // Method Report menu - Show previous month transactions - option 2
     public static void showPreviousMonthTransaction() {
         try {
             //Create a FileInputStream object pointing to transaction.csv file
@@ -288,8 +273,8 @@ public class AccountingApp {
             while (myScanner.hasNextLine()) {
 
                 Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making the transaction object
-                LocalDate todayDate = LocalDate.now(); // Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
-                if (myTransaction.getDate().getMonth() == todayDate.getMonth().minus(1)) { // Comparing transaction month to previous month. Left hand month of transaction right hand previous mont
+                LocalDate todayDate = LocalDate.now(); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
+                if (myTransaction.getDate().getMonth() == todayDate.getMonth().minus(1)) { // Comparing transaction month to previous month. Left hand month of transaction, right hand previous mont
                     System.out.println(myTransaction.showDetails());
                 }
             }
@@ -298,8 +283,6 @@ public class AccountingApp {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
         }
-
-
     }
 
     //Create a method to show Year to date transaction. option 3
@@ -309,13 +292,12 @@ public class AccountingApp {
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
             Scanner myScanner = new Scanner(myFileInputStream); //create a Scanner to reference the file to be read
 
-
             //While loop to read the line
             while (myScanner.hasNextLine()) {
 
                 Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making the transaction object
 
-                LocalDate todayDate = LocalDate.now();
+                LocalDate todayDate = LocalDate.now(); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
 
                 if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate))
                     System.out.println(myTransaction.showDetails());
@@ -324,13 +306,11 @@ public class AccountingApp {
         } catch (Exception e) {
             System.out.println("An error occurred");
             e.printStackTrace(); //Identify the error and details about the exception
-
         }
     }
 
-    //Create a method to show PreviousYear Transaction // TODO : Finish this method
+    //Create a method to show PreviousYear Transaction - Option 4 Report menu
     public static void showPreviousYearTransaction() {
-
         try {
             //Create a FileInputStream object pointing to transaction.csv file
             FileInputStream myFileInputStream = new FileInputStream("transaction.csv");
@@ -340,11 +320,9 @@ public class AccountingApp {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
                 LocalDate todayDate = LocalDate.now();//Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
-                //LocalDate todayYear = LocalDate.now().minus(1); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
 
-                if (myTransaction.getDate().getYear() == (todayDate.getYear() - 1)) { // Comparing transaction month to previous month
+                if (myTransaction.getDate().getYear() == (todayDate.getYear() - 1)) { // Comparing transaction month to previous month. -1 because I am referring to previous month
                     System.out.println(myTransaction.showDetails());
-
                 }
             }
             myScanner.close();
@@ -377,14 +355,13 @@ public class AccountingApp {
             e.printStackTrace(); //Identify the error and details about the exception
         }
     }
-
 }
 
 
-// TODO: Create a method to show Year to date transactions
-// TODO: Create a method to display previous year transactions
-// TODO: Create a method to search the transactions by vendor name (option 5)
-// TODO: Create a method to go back to Ledger page
-// TODO: Create a custom search method (Challenge)
+
+
+
+
+
 
 
