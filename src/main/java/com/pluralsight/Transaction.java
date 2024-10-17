@@ -21,7 +21,7 @@ public class Transaction {
         this.vendor = vendor;
     }
 
-    // TODO: Talk about this constructor
+    // Help from Sameem
     //Constructor accept a string array as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
     public Transaction(String transactionLine) {
         String[] properties = transactionLine.split("\\|");
@@ -37,7 +37,7 @@ public class Transaction {
     public String showDetails() {
         return "Date: " + this.date + "|" + "Time: " + this.time + "|" + "Description: " + this.description + "|" + "Vendor: " + this.vendor + "|" + "Amount:" + this.amount ;
 
-    }
+    } //Help ends here
 
 
     //Getters and setters
