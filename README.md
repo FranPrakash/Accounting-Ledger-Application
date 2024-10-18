@@ -1,7 +1,7 @@
 # Accounting-Ledger-Application
 ## CLI Accounting App
 Using this application the user will be able to track financial transactions for a business or personal use.
-You will be able to track your deposits, payments, analyze year to date transactions, month to date transactions,  previous year transactions, display all entries and search by vendor. 
+The user will be able to track deposits, payments, analyze year to date transactions, month to date transactions,  previous year transactions, display all entries and search by vendor. 
 
 ### Here are some images of the application Screens 
 
