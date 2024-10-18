@@ -333,7 +333,7 @@ public class AccountingApp {
                 Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the transaction object
 
                 LocalDate todayDate = LocalDate.now();//Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
-
+                //Got help From Maaike to create this if Condition
                 if (myTransaction.getDate().getYear() == (todayDate.getYear() - 1)) { // Comparing transaction month to previous month. -1 because I am referring to previous month
                     System.out.println(myTransaction.showDetails());
                 }
@@ -348,7 +348,7 @@ public class AccountingApp {
 
     // Method to search the transaction by vendor - Option 5
     public static void searchTransactionByVendor() {
-        //Staring by getting user input
+        //Starting by getting user input
         Scanner mySc = new Scanner(System.in); //Scanner to get user input
         System.out.println("What is the vendor name ? "); //Prompt user for vendor name
         String vendorName = mySc.nextLine();

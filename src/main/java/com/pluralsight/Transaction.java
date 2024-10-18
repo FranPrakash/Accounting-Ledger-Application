@@ -21,7 +21,7 @@ public class Transaction {
         this.vendor = vendor;
     }
 
-    //TODO I got help from Sameem to create this Constructor and Method
+    //TODO I got help from Sameem to create this Constructor
     //TODO The constructor is accepting a string as input, splinting the line of the file that is stored in a String Array using pipe as a delimiter (transaction csv file) and parsing to the correct data type.
     public Transaction(String transactionLine) { //Transaction line string array temporary stores the transaction line
         String[] properties = transactionLine.split("\\|"); //Splitting the line with a pipe delimiter
@@ -31,7 +31,7 @@ public class Transaction {
         this.time = LocalTime.parse(properties[1]);
         this.vendor = properties[3]; // setting the value of description as the fourth element of properties array
     }
-
+     //I got help from Sameem to create this Method
     //Method to show transaction details in a clean format
     public String showDetails() {
         return "Date: " + this.date + "|" + "Time: " + this.time + "|" + "Description: " + this.description + "|" + "Vendor: " + this.vendor + "|" + "Amount:" + this.amount ;
