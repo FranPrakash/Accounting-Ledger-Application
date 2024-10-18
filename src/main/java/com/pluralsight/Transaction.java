@@ -21,9 +21,9 @@ public class Transaction {
         this.vendor = vendor;
     }
 
-    // I got help from Sameem to create this Constructor and Method
-    //accept a string as input then it parses each element to the correct data type and sets the value of the variables.// Transaction line string array temporary stores the transaction line
-    public Transaction(String transactionLine) {
+    //TODO I got help from Sameem to create this Constructor and Method
+    //TODO The constructor is accepting a string as input, splinting the line of the file that is stored in a String Array using pipe as a delimiter (transaction csv file) and parsing to the correct data type.
+    public Transaction(String transactionLine) { //Transaction line string array temporary stores the transaction line
         String[] properties = transactionLine.split("\\|"); //Splitting the line with a pipe delimiter
         this.amount = Float.parseFloat(properties[4]);
         this.date = LocalDate.parse(properties[0]);

@@ -49,7 +49,7 @@ public class AccountingApp {
     }
 
     //Create a method to prompt the user for the deposit information and save it to the CSV file
-    //Got hel from Osmig
+    //TODO I Got help from Osmig to create this method
     public static void deposit() {
         Scanner myScanner = new Scanner(System.in); // Scanner to receive user input
         // Prompt the user questions
@@ -101,7 +101,7 @@ public class AccountingApp {
             System.out.println("An unexpected error occurred");
             e.printStackTrace(); //Show the system msg error to the user, it Identifies the error and details about the exception
         }
-        //showHomeScreen();
+
     }
 
     //Method for ledgerMenu option L (Ledger Display)
@@ -149,8 +149,9 @@ public class AccountingApp {
 
             //While loop to read until there is no more data // hasNextLine() method checks if there is another line in the file
             while (myScanner.hasNextLine()) {
+                //Passing one line of the file to the constructor that is being called. Making the myTransaction object
+                Transaction myTransaction = new Transaction(myScanner.nextLine());
 
-                Transaction myTransaction = new Transaction(myScanner.nextLine()); //Passing one line of the file to the constructor that is being called. Making the myTransaction object
                 System.out.println(myTransaction.showDetails()); //show details is a method used to show transaction details in a clean format
             }
             myScanner.close();
@@ -281,10 +282,11 @@ public class AccountingApp {
 
             //While loop to read the line
             while (myScanner.hasNextLine()) {
-                Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making the transaction object
-                LocalDate todayDate = LocalDate.now(); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
-                if (myTransaction.getDate().getMonth() == todayDate.getMonth().minus(1)) { // Comparing transaction month to previous month. Left hand month of transaction, right hand previous month
-                    System.out.println(myTransaction.showDetails());
+                Transaction myTransaction = new Transaction(myScanner.nextLine());//Passing one line of the file to the constructor that is being called. Making myTransaction object
+
+                // Comparing transaction month to previous month. Left hand month of transaction, right hand previous month
+                if (myTransaction.getDate().getMonth() == LocalDate.now().getMonth().minus(1)) { //TODO very interesting how we can chain methods to get an output.Reduce the lines of code and it becomes more intuitive to read/write and understand.
+                    System.out.println(myTransaction.showDetails()); //TODO: I'm chaining the calling of three methods, the Output of LocalDate.Now(), becomes the input of getMonth(), the output of getMonth() becomes the input of minus().
                 }
             }
             myScanner.close();
@@ -309,7 +311,7 @@ public class AccountingApp {
 
                 LocalDate todayDate = LocalDate.now(); //Store today date in the local date variable . I am declaring this variable so I can use in the IF condition
 
-                if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate)) // Comparing the transaction date and year with today year, if this is true display my trans
+                if (myTransaction.getDate().getYear() == todayDate.getYear() && !myTransaction.getDate().isAfter(todayDate)) // Comparing the previous transaction date and year with today year, if this is true display my transactions
                     System.out.println(myTransaction.showDetails());
             }
             myScanner.close();
